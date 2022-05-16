@@ -9,10 +9,7 @@ interface EmployeeInterface
     public function getSurname(): string;
 
     public function getJobTitle(): string;
-}
 
-interface EmployeeWithPublicFacilitiesInterface
-{
     public function getPublicTransportationFee(): float;
 
     public function getPublicCateringFee(): float;
@@ -20,7 +17,7 @@ interface EmployeeWithPublicFacilitiesInterface
 
 class PublicFacilitiesCalculator
 {
-    public function getTotal(EmployeeWithPublicFacilitiesInterface $employee): float
+    public function getTotal(EmployeeInterface $employee): float
     {
         return $employee->getPublicCateringFee() + $employee->getPublicTransportationFee();
     }

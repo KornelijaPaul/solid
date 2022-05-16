@@ -31,16 +31,13 @@ class Employee
     {
         return $this->email;
     }
-}
 
-class JsonFormatter
-{
-    public function format(Employee $employee): string
+    public function formatJson(): string
     {
         return json_encode(
             [
-                "general_email" => $employee->getEmail(),
-                "official_name" => $employee->getName(),
+                "general_email" => $this->email,
+                "official_name" => $this->name,
             ],
             JSON_THROW_ON_ERROR
         );

@@ -1,74 +1,54 @@
 <?php
 
-//Liskov Substitution Principle Violation
-
-class Duck
-{
-    public function quack()
-    {
-
-    }
-
-    public function swim()
-    {
-
-    }
-
-    public function fly()
-    {
-
-    }
-}
-
-class RubberDuck extends Duck
-{
-    public function quack()
-    {
-        throw new Exception('A rubber duck cannot quack');
-    }
-
-    public function swim()
-    {
-        throw new Exception('A rubber duck cannot swim');
-    }
-}
-
-// Refactored
+declare(strict_types=1);
 
 interface QuackableInterface {
-    public function quack();
+    public function quack(): string;
 }
 
 interface FlyableInterface {
-    public function fly();
+    public function fly(): string;
 }
 
 interface SwimmableInterface {
-    public function swim();
+    public function swim(): string;
 }
 
 class Duck implements QuackableInterface, FlyableInterface, SwimmableInterface
 {
-    public function quack()
+    public function quack(): string
     {
-
+        return 'Quack';
     }
 
-    public function fly()
+    public function swim(): string
     {
-
+        return 'Swim';
     }
 
-    public function swim()
+    public function fly(): string
     {
-
+        return 'Fly';
     }
 }
 
-class RubberDuck implements SwimmableInterface
+class RubberDuck implements QuackableInterface, SwimmableInterface
 {
-    public function swim()
+    public function quack(): string
     {
+        return 'Quack';
+    }
 
+    public function swim(): string
+    {
+        return 'Swim';
+    }
+}
+
+class DuckFlyer
+{
+    public function makeFly(FlyableInterface $duck): string
+    {
+        return $duck->fly();
     }
 }

@@ -1,75 +1,36 @@
 <?php
 
-// Open Closed Principle Violation
+declare(strict_types=1);
 
-class Programmer
+interface EmployeeInterface
 {
-    private int $salary;
+    public function getSalary(): float;
+    public function getBonus(): float;
+}
 
-    public function getSalary(): int
+class Developer implements EmployeeInterface
+{
+    public function getSalary(): float
     {
-        return $this->salary;
+        return 1100;
+    }
+
+    public function getBonus(): float
+    {
+        return $this->getSalary() * 0.15;
     }
 }
 
-class Tester
+class Tester implements EmployeeInterface
 {
-    private int $salary;
-
-    public function getSalary(): int
+    public function getSalary(): float
     {
-        return $this->salary;
-    }
-}
-
-class BonusCalculator
-{
-    private array $employees;
-
-    public function __construct(array $employees)
-    {
-        $this->employees = $employees;
+        return 1000;
     }
 
-    public function getTotal(): int
+    public function getBonus(): float
     {
-        $bonus = [];
-
-        foreach($this->employees as $employee) {
-            if ($employee instanceof Programmer) {
-                $bonus[] = $employee->getSalary() * 0.15;
-            } elseif ($employee instanceof Tester)
-                $bonus[] = $employee->getSalary() * 0.14;
-        }
-
-        return array_sum($bonus);
-    }
-}
-
-// Refactored
-
-interface Employee
-{
-    public function getBonus(): int;
-}
-
-class Programmer implements Employee
-{
-    private int $salary;
-
-    public function getBonus(): int
-    {
-        return $this->salary * 0.15;
-    }
-}
-
-class Tester implements Employee
-{
-    private int $salary;
-
-    public function getBonus(): int
-    {
-        return $this->salary * 0.14;
+        return $this->getSalary() * 0.14;
     }
 }
 
@@ -80,7 +41,7 @@ class BonusCalculator
     public function __construct(array $employees) {
         $this->employees = $employees;
     }
-    public function getTotal(): int
+    public function getTotal(): float
     {
         $bonus = [];
 
